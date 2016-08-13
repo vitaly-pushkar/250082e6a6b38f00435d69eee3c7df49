@@ -3,8 +3,11 @@ require 'json'
 
 RSpec.describe FyberClient do
   let(:api_key) { '123' }
+  let(:client) { FyberClient.new }
 
   before do
+    allow(client).to receive(:api_key) { api_key }
+    
     hashkey = Digest::SHA1.hexdigest(response + api_key)
 
     stub_request(:any, /api.fyber.com/)
@@ -39,13 +42,11 @@ RSpec.describe FyberClient do
     end
 
     it 'returns no offers' do
-      client = FyberClient.new
-      allow(client).to receive(:api_key) { api_key }
-
       result = client.call
 
       expect(result.code).to eq(200)
       expect(result.body).to eq(response)
+      expect(JSON.parse(result.body)['code']).to eq('OK')
       expect(JSON.parse(result.body)['offers']).to be_empty
     end
   end
@@ -103,14 +104,34 @@ RSpec.describe FyberClient do
     end
 
     it 'returns offers' do
-      client = FyberClient.new
-      allow(client).to receive(:api_key) { api_key }
-
       result = client.call
 
       expect(result.code).to eq(200)
       expect(result.body).to eq(response)
+      expect(JSON.parse(result.body)['code']).to eq('OK')
       expect(JSON.parse(result.body)['offers']).not_to be_empty
+    end
+  end
+  
+  context 'generic unsuccessful response with message' do
+    let(:status) { 400 }
+    
+    let(:response) do
+      <<-RESPONSE
+      {
+        "code": "NOT_OK_CODE",
+        "message": "Some Message"
+      }
+      RESPONSE
+    end
+    
+    it 'contains error code and message' do
+      result = client.call
+      
+      expect(result.code).to eq(400)
+      expect(result.body).to eq(response)
+      expect(JSON.parse(result.body)['code']).to eq('NOT_OK_CODE')
+      expect(JSON.parse(result.body)['message']).to eq('Some Message')
     end
   end
 end
