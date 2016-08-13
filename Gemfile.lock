@@ -11,6 +11,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rake (10.4.2)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -40,6 +41,7 @@ PLATFORMS
 
 DEPENDENCIES
   rack-test
+  rake
   rspec
   sinatra
   webmock
