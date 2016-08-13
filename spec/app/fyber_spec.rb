@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe Fyber do
+RSpec.describe App::Fyber do
   def app
-    Fyber
+    App::Fyber
   end
 
   context 'GET #index' do
@@ -74,7 +74,7 @@ RSpec.describe Fyber do
     end
     
     context 'handles response exceptions' do
-      Fyber::EXCEPTIONS.each do |exception|
+      App::Fyber::EXCEPTIONS.each do |exception|
         it "handles response #{exception} exception" do
           allow_any_instance_of(OffersRepository)
             .to receive(:get_offers).and_raise(exception, 'Message')
