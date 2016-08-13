@@ -3,26 +3,34 @@ html
   head
     title Fyber Offers API Client
     meta name="author" content="Vitaly Pushkar"
-
+    css:
+      .form-input { margin-right: 20px; }
   body
     h1 Fyber Offers API Client
 
     #content
       #form
         form method='post' action='/'
-          input#uid name='uid' type='text'
-          input#pub0 name='pub0' type='text'
-          input#page name='page' type='text'
+          span.form-input
+            label for='uid' User ID: 
+            input#uid name='uid' type='text' value='player1'
+          span.form-input
+            label for='pub0' Custom Param: 
+            input#pub0 name='pub0' type='text' value='campaign1'
+          span.form-input
+            label for='page' Page: 
+            input#page name='page' type='text' value='1'
 
           input#submit type='submit' value='Get offers'
 
-
+      br
       - unless offers.empty?
         table
           - offers.each do |offer|
             tr
               td.title = offer.title
-              td.thumbnail = offer.thumbnail
+              td.thumbnail
+                img src = offer.thumbnail['lowres']
               td.payout = offer.payout
 
       - else
