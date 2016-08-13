@@ -13,13 +13,13 @@ html
         form method='post' action='/'
           span.form-input
             label for='uid' User ID: 
-            input#uid name='uid' type='text' value='player1'
+            input#uid name='uid' type='text' placeholder='player1'
           span.form-input
             label for='pub0' Custom Param: 
-            input#pub0 name='pub0' type='text' value='campaign1'
+            input#pub0 name='pub0' type='text' placeholder='campaign1'
           span.form-input
             label for='page' Page: 
-            input#page name='page' type='text' value='1'
+            input#page name='page' type='text' placeholder='1'
 
           input#submit type='submit' value='Get offers'
 
@@ -37,7 +37,7 @@ html
         - unless message.nil?
           h2 = message
         - else
-          h2 No offers available. Try again.
+          h2 No offers available. Fill in the form and click "Get offers"
 
     #footer
       | Copyright © 2016 Vitaly Pushkar
