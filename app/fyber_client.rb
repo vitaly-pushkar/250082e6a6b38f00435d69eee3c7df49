@@ -1,5 +1,5 @@
 require 'httparty'
-
+require 'pry'
 InvalidResponseSignature = Class.new(StandardError)
 
 class FyberClient
@@ -23,9 +23,6 @@ class FyberClient
       ip: '109.235.143.113',
       locale: 'de',
       offer_types: 112,
-      uid: 'player1',
-      pub0: 'campaign1',
-      page: 1,
       timestamp: Time.now.to_i
     }
   end
@@ -49,7 +46,7 @@ class FyberClient
   end
 
   def hash_to_query_string(params_hash)
-    params_hash.sort.map{|k,v| "#{k}=#{v}"}.join('&')
+    stringify_keys(params_hash).sort.map{|k,v| "#{k}=#{v}"}.join('&')
   end
 
   def generate_hash_key(query_string, api_key)
@@ -68,5 +65,9 @@ class FyberClient
 
   def hash(string)
     Digest::SHA1.hexdigest string
+  end
+
+  def stringify_keys(hash)
+    Hash[hash.collect{|k,v| [k.to_s, v]}]
   end
 end
