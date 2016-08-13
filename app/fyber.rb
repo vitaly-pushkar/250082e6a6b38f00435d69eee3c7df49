@@ -6,9 +6,8 @@ class Fyber < Sinatra::Base
   end
 
   post '/' do
-    uid, pub0, page = params['uid'], params['pub0'], params['page']
-
-    offers = OffersRepository.new.get_offers(uid, pub0, page)
+    offers_params = filter_params(params)
+    offers = OffersRepository.new.get_offers(offers_params)
 
     render_page(offers)
   end
@@ -17,5 +16,9 @@ class Fyber < Sinatra::Base
 
   def render_page(offers=[])
     slim :index, locals: { offers: offers }
+  end
+
+  def filter_params(params)
+    params.select{|k| ['uid', 'pub0', 'page'].include?(k) }
   end
 end
