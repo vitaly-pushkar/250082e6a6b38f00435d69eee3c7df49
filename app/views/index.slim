@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title Fyber Offers API Client
+    meta name="author" content="Vitaly Pushkar"
+
+  body
+    h1 Fyber Offers API Client
+
+    #content
+      #form
+
+      #offers
+        - unless offers.empty?
+          table
+            - offers.each do |offer|
+              tr
+                td.title = offer.title
+                td.thumbnail = offer.thumbnail
+                td.payout = offer.payout
+        - else
+          p
+           | No offers available. Try again.
+
+    #footer
+      | Copyright © 2016 Vitaly Pushkar
