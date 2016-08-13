@@ -1,8 +1,8 @@
 class OffersRepository
   attr_reader :client
 
-  def initialize(client=FyberClient)
-    @client = client
+  def initialize(client = nil)
+    @client ||= client || default_client
   end
 
   def get_offers(params)
@@ -21,5 +21,9 @@ class OffersRepository
 
   def parse_response(response)
     response.parsed_response
+  end
+
+  def default_client
+    FyberClient.new
   end
 end
