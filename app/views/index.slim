@@ -9,18 +9,24 @@ html
 
     #content
       #form
+        form method='post' action='/'
+          input#uid name='uid' type='text'
+          input#pub0 name='pub0' type='text'
+          input#page name='page' type='text'
 
-      #offers
-        - unless offers.empty?
-          table
-            - offers.each do |offer|
-              tr
-                td.title = offer.title
-                td.thumbnail = offer.thumbnail
-                td.payout = offer.payout
-        - else
-          p
-           | No offers available. Try again.
+          input#submit type='submit' value='Get offers'
+
+
+      - unless offers.empty?
+        table
+          - offers.each do |offer|
+            tr
+              td.title = offer.title
+              td.thumbnail = offer.thumbnail
+              td.payout = offer.payout
+
+      - else
+        h2 No offers available. Try again.
 
     #footer
       | Copyright © 2016 Vitaly Pushkar
