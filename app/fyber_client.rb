@@ -1,8 +1,8 @@
 require 'httparty'
 require 'pry'
-InvalidResponseSignature = Class.new(StandardError)
 
 class FyberClient
+  InvalidResponseSignature = Class.new(StandardError)
   include HTTParty
 
   base_uri 'api.fyber.com'
@@ -56,10 +56,16 @@ class FyberClient
   end
 
   def validate_response_hash(response, api_key)
+    return response unless response.code == 200
+    
     signature = response.headers['X-Sponsorpay-Response-Signature']
     response_hash = hash(response.body + api_key)
 
-    raise InvalidResponseSignature unless signature == response_hash
+    unless signature == response_hash
+      message = 'Response signature is not matching! May be a fake response.'
+      raise InvalidResponseSignature, message
+    end
+    
     response
   end
 
