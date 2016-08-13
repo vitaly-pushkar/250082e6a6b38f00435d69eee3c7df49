@@ -1,4 +1,12 @@
 class Fyber < Sinatra::Base
+  EXCEPTIONS = [
+    FyberClient::InvalidResponseSignature,
+    OffersRepository::RemoteServerError,
+    OffersRepository::URLNotFound,
+    OffersRepository::InvalidHashKey,
+    OffersRepository::InvalidParams,
+  ]
+  
   set :views, Proc.new { File.join(root, "views") }
 
   get '/' do
@@ -7,15 +15,21 @@ class Fyber < Sinatra::Base
 
   post '/' do
     offers_params = filter_params(params)
-    offers = OffersRepository.new.get_offers(offers_params)
+    offers = []
+    
+    begin
+      offers = OffersRepository.new.get_offers(offers_params)
+    rescue *EXCEPTIONS => e
+      message = e.message
+    end
 
-    render_page(offers)
+    render_page(offers, message)
   end
 
   private
 
-  def render_page(offers=[])
-    slim :index, locals: { offers: offers }
+  def render_page(offers = [], message = nil)
+    slim :index, locals: { offers: offers, message: message }
   end
 
   def filter_params(params)

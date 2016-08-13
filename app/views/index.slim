@@ -34,7 +34,10 @@ html
               td.payout = offer.payout
 
       - else
-        h2 No offers available. Try again.
+        - unless message.nil?
+          h2 = message
+        - else
+          h2 No offers available. Try again.
 
     #footer
       | Copyright © 2016 Vitaly Pushkar

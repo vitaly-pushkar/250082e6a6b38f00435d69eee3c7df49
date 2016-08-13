@@ -28,6 +28,7 @@ RSpec.describe Fyber do
   end
 
   context 'POST #index' do
+    let(:params) { { uid: 123, pub0: 'pub0', page: 1 } }
     context 'no offers result' do
       before do
         allow_any_instance_of(OffersRepository)
@@ -35,7 +36,7 @@ RSpec.describe Fyber do
       end
 
       it 'renders page without offers' do
-        post '/', uid: 123, pub0: 'pub0', page: 1
+        post '/', params
 
         expect(last_response.status).to eq 200
         expect(last_response.body).to include('No offers available')
@@ -58,7 +59,7 @@ RSpec.describe Fyber do
       end
 
       it 'renders page with offers' do
-        post '/', uid: 123, pub0: 'pub0', page: 1
+        post '/', params
 
         expect(last_response.status).to eq 200
 
@@ -69,6 +70,20 @@ RSpec.describe Fyber do
         expect(last_response.body).to include('offer2')
         expect(last_response.body).to include('offer2.jpg')
         expect(last_response.body).to include('321')
+      end
+    end
+    
+    context 'handles response exceptions' do
+      Fyber::EXCEPTIONS.each do |exception|
+        it "handles response #{exception} exception" do
+          allow_any_instance_of(OffersRepository)
+            .to receive(:get_offers).and_raise(exception, 'Message')
+
+          post '/', params
+
+          expect(last_response.status).to eq 200
+          expect(last_response.body).to include('Message')
+        end
       end
     end
   end
