@@ -5,7 +5,15 @@ class OffersRepository
     @client = client
   end
 
-  def get_offers(uid, pub0, page)
-    client.get_offers({uid: uid, pub0: pub0, page: page})
+  def get_offers(params)
+    response = client.call(params)
+    extract_offers(response)
+  end
+
+  private
+
+  def extract_offers(response)
+    offers = response.parsed_response['offers']
+    offers.map {|offer_hash| OpenStruct.new(offer_hash) }
   end
 end
