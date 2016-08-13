@@ -41,5 +41,31 @@ RSpec.describe Fyber do
         expect(last_response.body).to include('No offers available')
       end
     end
+
+    context 'result with offers' do
+      let(:offers) do
+        [OpenStruct.new(title: 'offer1', thumbnail: 'offer1.jpg', payout: 123 ),
+         OpenStruct.new(title: 'offer2', thumbnail: 'offer2.jpg', payout: 321 )]
+      end
+
+      before do
+        allow_any_instance_of(OffersRepository)
+          .to receive(:get_offers).and_return(offers)
+      end
+
+      it 'renders page with offers' do
+        post '/', uid: 123, pub0: 'pub0', page: 1
+
+        expect(last_response.status).to eq 200
+
+        expect(last_response.body).to include('offer1')
+        expect(last_response.body).to include('offer1.jpg')
+        expect(last_response.body).to include('123')
+
+        expect(last_response.body).to include('offer2')
+        expect(last_response.body).to include('offer2.jpg')
+        expect(last_response.body).to include('321')
+      end
+    end
   end
 end

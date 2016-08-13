@@ -6,7 +6,10 @@ class Fyber < Sinatra::Base
   end
 
   post '/' do
-    offers = OffersRepository.new.get_offers
+    uid, pub0, page = params['uid'], params['pub0'], params['page']
+
+    offers = OffersRepository.new.get_offers(uid, pub0, page)
+
     render_page(offers)
   end
 
