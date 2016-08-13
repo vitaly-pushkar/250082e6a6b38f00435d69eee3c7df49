@@ -3,6 +3,7 @@ ENV['RACK_ENV'] = 'test'
 require "./config/environment"
 require './app/fyber'
 require './app/offers_repository'
+require './app/fyber_client'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
