@@ -1,6 +1,7 @@
 ENV['RACK_ENV'] = 'test'
 
 require "./config/environment"
+require './app/fyber_api'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
