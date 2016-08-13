@@ -44,8 +44,12 @@ RSpec.describe Fyber do
 
     context 'result with offers' do
       let(:offers) do
-        [OpenStruct.new(title: 'offer1', thumbnail: 'offer1.jpg', payout: 123 ),
-         OpenStruct.new(title: 'offer2', thumbnail: 'offer2.jpg', payout: 321 )]
+        [ OpenStruct.new(title: 'offer1',
+            thumbnail: {'lowres' => 'offer1.jpg'},
+            payout: 123 ),
+          OpenStruct.new(title: 'offer2',
+            thumbnail: {'lowres' => 'offer2.jpg'},
+            payout: 321 )]
       end
 
       before do
