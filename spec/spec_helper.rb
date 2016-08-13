@@ -1,9 +1,14 @@
 ENV['RACK_ENV'] = 'test'
 
+require 'webmock/rspec'
+require 'pry'
+
 require "./config/environment"
 require './app/fyber'
 require './app/offers_repository'
 require './app/fyber_client'
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
