@@ -1,4 +1,5 @@
 require 'httparty'
+require 'addressable'
 
 class FyberClient
   InvalidResponseSignature = Class.new(StandardError)
@@ -18,6 +19,7 @@ class FyberClient
     request_url = generate_request_url(params, API_KEY)
 
     response = self.class.get(request_url)
+
     validate_response_hash(response, API_KEY)
   end
 
@@ -31,7 +33,7 @@ class FyberClient
   end
 
   def hash_to_query_string(params_hash)
-    stringify_keys(params_hash).sort.map { |k, v| "#{k}=#{v}" }.join('&')
+    Addressable::URI.form_encode(params_hash, true)
   end
 
   def generate_hash_key(query_string, api_key)
@@ -56,9 +58,5 @@ class FyberClient
 
   def hash(string)
     Digest::SHA1.hexdigest string
-  end
-
-  def stringify_keys(hash)
-    Hash[hash.collect { |k, v| [k.to_s, v] }]
   end
 end

@@ -7,6 +7,7 @@ gem 'httparty'
 gem 'dry-configurable'
 gem 'dry-validation'
 gem 'rack-flash3'
+gem 'addressable'
 
 group :development do
   gem 'pry'

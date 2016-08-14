@@ -94,6 +94,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   codeclimate-test-reporter
   dry-configurable
   dry-validation
