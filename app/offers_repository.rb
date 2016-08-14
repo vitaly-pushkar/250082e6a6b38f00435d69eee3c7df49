@@ -32,8 +32,10 @@ class OffersRepository
 
   def extract_offers(response)
     parsed_response = parse_response(response)
-
     offers = parsed_response['offers']
+
+    return [] unless offers
+    
     offers.map { |offer_hash| OpenStruct.new(offer_hash) }
   end
 

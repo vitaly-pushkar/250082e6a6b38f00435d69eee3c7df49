@@ -45,6 +45,18 @@ RSpec.describe OffersRepository do
         expect(result).to eq([])
       end
     end
+
+    context 'response no offers key' do
+      let(:response) do
+        double('response', code: 200, parsed_response: {})
+      end
+
+      it 'returns empty list of offers' do
+        result = OffersRepository.new(client).get_offers(params)
+
+        expect(result).to eq([])
+      end
+    end
   end
 
   context 'client response is unsuccessful' do
