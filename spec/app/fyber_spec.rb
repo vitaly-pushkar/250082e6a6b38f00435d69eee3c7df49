@@ -29,6 +29,7 @@ RSpec.describe App::Fyber do
 
   context 'GET /offers' do
     let(:params) { { uid: 123, pub0: 'pub0', page: 1 } }
+
     context 'no offers result' do
       before do
         allow_any_instance_of(OffersRepository)
@@ -88,6 +89,35 @@ RSpec.describe App::Fyber do
           expect(last_response.status).to eq 200
           expect(last_response.body).to include('Message')
         end
+      end
+    end
+
+    context 'form params validation' do
+      it 'renders error when uid is missing' do
+        get '/offers', pub0: 'pub0', page: 1
+
+        expect(last_response).to be_redirect
+        follow_redirect!
+
+        expect(last_response.body).to include('uid: is missing')
+      end
+
+      it 'renders error when pub0 is missing' do
+        get '/offers', uid: 123, page: 1
+
+        expect(last_response).to be_redirect
+        follow_redirect!
+
+        expect(last_response.body).to include('pub0: is missing')
+      end
+
+      it 'renders errors when page is missing' do
+        get '/offers', uid: 123, pub0: 'pub0'
+
+        expect(last_response).to be_redirect
+        follow_redirect!
+
+        expect(last_response.body).to include('page: is missing')
       end
     end
   end

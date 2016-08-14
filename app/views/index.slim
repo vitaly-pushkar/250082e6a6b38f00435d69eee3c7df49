@@ -5,12 +5,15 @@ html
     meta name="author" content="Vitaly Pushkar"
     css:
       .form-input { margin-right: 20px; }
+      .errors { border: 1px solid red; margin-bottom: 20px; padding: 5px; }
   body
     h1 Fyber Offers API Client
 
     #content
       #form
         form method='get' action='/offers'
+          - if flash[:errors] && !flash[:errors].empty?
+            div.errors = flash[:errors]
           span.form-input
             label for='uid' User ID:
             input#uid name='uid' type='text' placeholder='player1'
@@ -37,7 +40,7 @@ html
         - unless message.nil?
           h2 = message
         - else
-          h2 No offers available. Fill in the form and click "Get offers"
+          h2 No offers available.
 
     #footer
       | Copyright © 2016 Vitaly Pushkar

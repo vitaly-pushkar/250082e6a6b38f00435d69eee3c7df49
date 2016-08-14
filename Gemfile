@@ -5,6 +5,8 @@ gem 'rake'
 gem 'slim'
 gem 'httparty'
 gem 'dry-configurable'
+gem 'dry-validation'
+gem 'rack-flash3'
 
 group :development do
   gem 'pry'
