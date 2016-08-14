@@ -45,12 +45,16 @@ RSpec.describe App::Fyber do
 
     context 'result with offers' do
       let(:offers) do
-        [ OpenStruct.new(title: 'offer1',
-            thumbnail: {'lowres' => 'offer1.jpg'},
-            payout: 123 ),
-          OpenStruct.new(title: 'offer2',
-            thumbnail: {'lowres' => 'offer2.jpg'},
-            payout: 321 )]
+        [OpenStruct.new(
+          title: 'offer1',
+          thumbnail: { 'lowres' => 'offer1.jpg' },
+          payout: 123
+        ),
+         OpenStruct.new(
+           title: 'offer2',
+           thumbnail: { 'lowres' => 'offer2.jpg' },
+           payout: 321
+         )]
       end
 
       before do
@@ -72,7 +76,7 @@ RSpec.describe App::Fyber do
         expect(last_response.body).to include('321')
       end
     end
-    
+
     context 'handles response exceptions' do
       App::Fyber::EXCEPTIONS.each do |exception|
         it "handles response #{exception} exception" do

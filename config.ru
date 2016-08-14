@@ -1,3 +1,3 @@
-require "./config/environment"
+require './config/environment'
 
-run Rack::URLMap.new("/" => App::Fyber)
+run Rack::URLMap.new('/' => App::Fyber)

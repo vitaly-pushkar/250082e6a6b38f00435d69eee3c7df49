@@ -3,7 +3,7 @@ class OffersRepository
   URLNotFound = Class.new(StandardError)
   InvalidHashKey = Class.new(StandardError)
   InvalidParams = Class.new(StandardError)
-  
+
   attr_reader :client
 
   def initialize(client = nil)
@@ -12,16 +12,16 @@ class OffersRepository
 
   def get_offers(params)
     response = client.call(params)
-    
+
     validate_response(response)
     extract_offers(response)
   end
 
   private
-  
+
   def validate_response(response)
     return if response.code == 200
-    
+
     message = parse_response(response)['message']
 
     raise InvalidParams, message if response.code == 400
@@ -34,7 +34,7 @@ class OffersRepository
     parsed_response = parse_response(response)
 
     offers = parsed_response['offers']
-    offers.map {|offer_hash| OpenStruct.new(offer_hash) }
+    offers.map { |offer_hash| OpenStruct.new(offer_hash) }
   end
 
   def parse_response(response)

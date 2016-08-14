@@ -5,10 +5,10 @@ module App
       OffersRepository::RemoteServerError,
       OffersRepository::URLNotFound,
       OffersRepository::InvalidHashKey,
-      OffersRepository::InvalidParams,
-    ]
-    
-    set :views, Proc.new { File.join(root, "views") }
+      OffersRepository::InvalidParams
+    ].freeze
+
+    set :views, proc { File.join(root, 'views') }
 
     get '/' do
       render_page
@@ -17,7 +17,7 @@ module App
     post '/' do
       offers_params = filter_params(params)
       offers = []
-      
+
       begin
         offers = OffersRepository.new.get_offers(offers_params)
       rescue *EXCEPTIONS => e
@@ -34,7 +34,7 @@ module App
     end
 
     def filter_params(params)
-      params.select{|k| ['uid', 'pub0', 'page'].include?(k) }
+      params.select { |k| %w(uid pub0 page).include?(k) }
     end
   end
 end
