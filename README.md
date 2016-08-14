@@ -15,6 +15,6 @@ Demo app is running on Heroku at https://floating-dawn-15079.herokuapp.com/
 - `cd` to the app folder
 - make sure you have ruby 2.2.4 along with `bundler` gem installed on your system
 - run `bundle install` to install required gems
-- after gems are installed, run `bundle exec rackup config.ru`
+- after gems are installed, run `FYBER_API_KEY=xxxxx bundle exec rackup config.ru`
 
 To run tests, simply execute `rake` command.
