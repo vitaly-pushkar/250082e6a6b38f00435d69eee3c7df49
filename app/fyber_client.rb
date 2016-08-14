@@ -1,5 +1,4 @@
 require 'httparty'
-require 'pry'
 
 class FyberClient
   InvalidResponseSignature = Class.new(StandardError)
