@@ -79,7 +79,7 @@ RSpec.describe OffersRepository do
 
       it 'raises exception' do
         expect { OffersRepository.new(client).get_offers(params) }
-          .to raise_error(OffersRepository::URLNotFound)
+          .to raise_error(OffersRepository::FeedNotFound)
       end
     end
 

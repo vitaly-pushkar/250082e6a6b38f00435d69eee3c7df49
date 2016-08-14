@@ -3,7 +3,7 @@ module App
     EXCEPTIONS = [
       FyberClient::InvalidResponseSignature,
       OffersRepository::RemoteServerError,
-      OffersRepository::URLNotFound,
+      OffersRepository::FeedNotFound,
       OffersRepository::InvalidHashKey,
       OffersRepository::InvalidParams
     ].freeze

@@ -1,6 +1,6 @@
 class OffersRepository
   RemoteServerError = Class.new(StandardError)
-  URLNotFound = Class.new(StandardError)
+  FeedNotFound = Class.new(StandardError)
   InvalidHashKey = Class.new(StandardError)
   InvalidParams = Class.new(StandardError)
 
@@ -26,7 +26,7 @@ class OffersRepository
 
     raise InvalidParams, message if response.code == 400
     raise InvalidHashKey, message if response.code == 401
-    raise URLNotFound, 'Not found' if response.code == 404
+    raise FeedNotFound, 'Not found' if response.code == 404
     raise RemoteServerError, message if [500, 502].include?(response.code)
   end
 
