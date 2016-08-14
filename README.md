@@ -8,6 +8,17 @@ Simple web client to consume Fyber API and render result offers in a HTML page.
 
 Based on [Sinatra](https://github.com/sinatra/sinatra), uses [HTTParty](https://github.com/jnunemaker/httparty) as HTTP client.
 
+
+###Story
+
+Following the commit history, you can see this app was developed in a test-drived way, "outside-in" approach.
+
+`FyberClient` is the "low-level" implementation of the Fyber API HTTP client with only one public method `#call`, returning a raw response.
+It is injected in the `OffersRepository` which takes care of validating the response and extracting offers from it into an array of offer objects (`OpenStruct` is used for simplicity) which are then rendered into HTML.
+
+Current version tries to keep balance between compactness and amount of abstractions.
+If the app would be to develop further, it would make sense to extract such responsibilities as raw response validation and offers extraction from `OffersRepository` and into specific classes which would be composed in `OffersRepository` leaving it only to communicate with injected clients and return offers objects for HTML render.
+
 ##Online Demo
 Demo app is running on Heroku at https://floating-dawn-15079.herokuapp.com/
 
