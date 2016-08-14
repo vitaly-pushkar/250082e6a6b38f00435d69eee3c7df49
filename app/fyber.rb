@@ -14,7 +14,7 @@ module App
       render_page
     end
 
-    post '/' do
+    get '/offers' do
       offers_params = filter_params(params)
       offers = []
 

@@ -10,15 +10,15 @@ html
 
     #content
       #form
-        form method='post' action='/'
+        form method='get' action='/offers'
           span.form-input
-            label for='uid' User ID: 
+            label for='uid' User ID:
             input#uid name='uid' type='text' placeholder='player1'
           span.form-input
-            label for='pub0' Custom Param: 
+            label for='pub0' Custom Param:
             input#pub0 name='pub0' type='text' placeholder='campaign1'
           span.form-input
-            label for='page' Page: 
+            label for='page' Page:
             input#page name='page' type='text' placeholder='1'
 
           input#submit type='submit' value='Get offers'

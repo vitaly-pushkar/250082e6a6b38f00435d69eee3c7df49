@@ -5,7 +5,7 @@ RSpec.describe App::Fyber do
     App::Fyber
   end
 
-  context 'GET #index' do
+  context 'GET /' do
     it 'renders index page' do
       get '/'
 
@@ -27,7 +27,7 @@ RSpec.describe App::Fyber do
     end
   end
 
-  context 'POST #index' do
+  context 'GET /offers' do
     let(:params) { { uid: 123, pub0: 'pub0', page: 1 } }
     context 'no offers result' do
       before do
@@ -36,7 +36,7 @@ RSpec.describe App::Fyber do
       end
 
       it 'renders page without offers' do
-        post '/', params
+        get '/offers', params
 
         expect(last_response.status).to eq 200
         expect(last_response.body).to include('No offers available')
@@ -63,7 +63,7 @@ RSpec.describe App::Fyber do
       end
 
       it 'renders page with offers' do
-        post '/', params
+        get '/offers', params
 
         expect(last_response.status).to eq 200
 
@@ -83,7 +83,7 @@ RSpec.describe App::Fyber do
           allow_any_instance_of(OffersRepository)
             .to receive(:get_offers).and_raise(exception, 'Message')
 
-          post '/', params
+          get '/offers', params
 
           expect(last_response.status).to eq 200
           expect(last_response.body).to include('Message')
