@@ -1,4 +1,3 @@
-require 'pry'
 module App
   class Fyber < Sinatra::Base
     EXCEPTIONS = [
