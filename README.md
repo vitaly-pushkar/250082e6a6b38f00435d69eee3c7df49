@@ -17,4 +17,5 @@ Demo app is running on Heroku at https://floating-dawn-15079.herokuapp.com/
 - run `bundle install` to install required gems
 - after gems are installed, run `FYBER_API_KEY=xxxxx bundle exec rackup config.ru` where `FYBER_API_KEY` is an api key received from Fyber
 
-To run tests, simply execute `rake` command.
+##Specs
+To run specs, simply execute `rake` command.
