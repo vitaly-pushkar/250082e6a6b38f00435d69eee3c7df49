@@ -11,7 +11,7 @@ require './app/fyber'
 require './app/offers_repository'
 require './app/fyber_client'
 
-WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!(allow_localhost: true, :allow => "codeclimate.com")
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
