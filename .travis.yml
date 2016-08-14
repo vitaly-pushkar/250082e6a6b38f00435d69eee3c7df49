@@ -2,7 +2,7 @@ language: ruby
 sudo: false
 bundler_args: --without console benchmarks
 rvm:
-  - 2.2.5
+  - 2.2.4
 addons:
   code_climate:
     repo_token: cd7c6e374a6d91f15d4e01685b09e75272f6b4908d666f38cbb685324677fae5
