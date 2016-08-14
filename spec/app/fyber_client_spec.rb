@@ -5,12 +5,14 @@ RSpec.describe FyberClient do
   let(:api_key) { '123' }
   let(:client) { FyberClient.new }
   
+  before do
+    stub_const('FyberClient::API_KEY', api_key)
+  end
+  
   context 'valid response' do
     before do
-      allow(client).to receive(:api_key) { api_key }
-      
       hashkey = Digest::SHA1.hexdigest(response + api_key)
-
+      
       stub_request(:any, /api.fyber.com/)
         .to_return(
           body: response,
@@ -67,8 +69,6 @@ RSpec.describe FyberClient do
     let(:response) { 'DOES NOT MATTER' }
     
     before do
-      allow(client).to receive(:api_key) { api_key }
-      
       hashkey = Digest::SHA1.hexdigest(response + api_key)
 
       stub_request(:any, /api.fyber.com/)

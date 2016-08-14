@@ -4,6 +4,7 @@ gem 'sinatra'
 gem 'rake'
 gem 'slim'
 gem 'httparty'
+gem 'dry-configurable'
 
 group :development do
   gem 'pry'
